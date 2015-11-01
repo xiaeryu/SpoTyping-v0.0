@@ -67,27 +67,20 @@ my $dir=dirname $0; 		# script directory
 my $setlength=50*5000000;	# base input cut-off for swift mode
 
 ## Option variables.
-my $opt_help;                   # help message
-my $opt_debug;                  # debug mode, default is off
-my $swift='on';             	# swift mode, default is on
-my $input1;			# input fastq file 1
+my $input1;			# input fastq file 2			
 my $input2;			# input fastq file 2
-my $min=5;			# minimum number of exact reads to support existence of spacer sequence
-my $min_relax=6;		# minimum number of approximate reads, allowing for 1 mismatch to support existence of spacer sequence
-my $output="SpoTyping";		# basename of output files
-my $blast;			# basename of bin directory containing the NCBI BLAST+ executables
 
 ## Getting options.
 Getopt::Long::Configure('bundling');
 if(
 !GetOptions(
-	"h"       => \$opt_help,
-	"d"       => \$opt_debug,
-	"swift:s" => \$swift,
-        "output=s"=> \$output,
-        "min=i"   => \$min,
-        "rmin=i"  => \$min_relax,
-	"blast=s" => \$blast,
+	"h"       => \my $opt_help, 		# help message
+	"d"       => \my $opt_debug,		# debug mode, default is off
+	"swift:s" => \(my $swift="on"),		# swift mode, default is on
+        "output=s"=> \(my $output="SpoTyping"),	# basename of output files
+        "min=i"   => \(my $min=5),              # minimum number of exact reads to support existence of spacer sequence
+        "rmin=i"  => \(my $min_relax=6),	# minimum number of approximate reads, allowing for 1 mismatch to support existence of spacer sequence
+	"blast=s" => \my $blast,		# basename of bin directory containing the NCBI BLAST+ executables
 ) || $opt_help
 ){
 	pod2usage(-verbose=>2) if ($opt_help);
